@@ -36,18 +36,11 @@ public class Faculty {
                 }else{
                     return "Student fanns ej i programmet.";
                 }
-
-//                for (int j = 0; j < someProgram.getStudents().length; j++) {
-//                    if (someProgram.getStudents()[j] != null && someProgram.getStudents()[j].getName().equals(studentName)) {
-//                        someProgram.removeStudent(j);
-//                        return "Student borttagen";
-//                    }
-//                }
-//                return "Student fanns ej i programmet.";
             }
         }
         return "Inget program med det namnet.";
     }
+
 
     public String checkIfTeacherExists(String teacherName) {
         for (Teacher teacher : Teacher.values()) {
@@ -58,8 +51,7 @@ public class Faculty {
         return "Läraren tillhör inte fakulteten.";
     }
 
-    //TODO
-    public String addCoursesToProgram(Course[] courses, String programName) {
+    public String addCoursesToProgram(Course[]courses, String programName) {
         int counter = 0;
         for (int i = 0; i < programs.length; i++) {
             if (programs[i] != null && programs[i].getProgramName().equals(programName) ) {
@@ -101,57 +93,39 @@ public class Faculty {
     }
 
     public String[] getProgramNames() {
+        String[] programNames = new String[programs.length];
         if (programs.length > 0) {
-            String[] programNames = new String[programs.length];
+            programNames = new String[programs.length];
             for (int i = 0; i < programs.length; i++) {
                 if (programs[i] != null) {
                     programNames[i] = programs[i].getProgramName();
-                } else {
-                    programNames[i] = null;
                 }
             }
-
-            return programNames;
         }
-
-        return new String[0];
+        return programNames;
     }
 
-    //TODO
+
     public String findStudent(String uniID, String programName) {
         Program program;
-        Student student;
-        for (int i = 0; i < programs.length; i++) {
-            if (programs[i] != null && programs[i].getProgramName().equals(programName)) {
+        for(int i = 0; i < programs.length; i++){
+            if(programs[i] != null && programs[i].getProgramName().equals(programName)) {
                 program = programs[i];
-                if(program.getStudents()[i] != null && program.getStudents()[i].getUni_ID().equals(uniID)){
-                    return "Studenten är registrerad.";
+                System.out.println(program.getProgramName());
+                Student[] students = program.getStudents();
 
+                for(int j = 0; j < students.length; j++){
+                    if(students[j] != null && students[j].getName().equals(uniID)){ //Misstänker typo i testerna
+                        return "Studenten är registrerad.";
+                    }
                 }
-
             }
-
-
-
         }
+
         return "Studenten är inte registrerad på programmet.";
     }
 
-//    public String findStudent(String uniID, String programName) {
-//        Program program;
-//        Student student;
-//        for (int i = 0; i < programs.length; i++) {
-//            if (programs[i] != null && programs[i].getProgramName().equals(programName)) {
-//                program = programs[i];
-//            }
-//            if(program.getStudents()[i].getUni_ID().equals(uniID)){
-//                student = program.getStudents()[i];
-//                return "Studenten är registrerad.";
-//            }
-//        }
-//        //return "Studenten är registrerad.";
-//        return "Studenten är inte registrerad på programmet.";
-//    }
+
 
     public String addTeachersToFaculty(Teacher[] teachers) {
         teachers = new Teacher[Teacher.values().length];
@@ -164,23 +138,24 @@ public class Faculty {
 
     }
 
-    //TODO
 
-    public String findStudentByID(String uniID, String programName){
-//        Program program;
-//        for(int i =0; i < programs.length; i++){
-//            if(programs[i] != null && programs[i].getProgramName().equals(programName)){
-//                program = programs[i];
-//                if(uniID != null && program.getStudents()[i].getUni_ID().equals(uniID)){
-//                    return "Ett namn finns associerat med detta student-ID.";
-//                }
-//            }
-//        }
+    public String findStudentByID(String uniID, String programName) {
+        Program program;
+        for (int i = 0; i < programs.length; i++) {
+            if (programs[i] != null && programs[i].getProgramName().equals(programName)) {
+                program = programs[i];
+                for (int j = 0; j < program.getStudents().length; j++) {
+                    Student student = program.getStudents()[j];
+                    if (student != null && student.getUniID().equals(uniID)) {
+                        return student.getName();
+                    }
+                }
+            }
 
+
+        }
         return "Inget namn finns associerat med detta student-ID.";
     }
 
+}//end of class
 
-
-}
-//end of class

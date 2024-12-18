@@ -2,20 +2,20 @@ package Uni;
 
 public class Student {
     private String name;
-    private String uni_ID;
+    private String uniID;
 
 
-    public Student(String name, String uni_ID){
+    public Student(String name, String uniID){
         this.name = name;
-        this.uni_ID = uni_ID;
+        this.uniID = uniID;
     }
 
     public String getName(){
         return name;
     }
 
-    public String getUni_ID(){
-        return uni_ID;
+    public String getUniID(){
+        return uniID;
     }
 
 }
